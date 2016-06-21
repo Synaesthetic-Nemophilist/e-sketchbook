@@ -28,7 +28,7 @@ var Todo = mongoose.model('Todo', {
 
 // THE API ---------------------------------------------------------------------
 // GET all todos
-app.get('/api/todos', function(req, res) {
+app.get('/api/todos', function(req, res) { //GET method of api is available @ /api/todos route
 
     // use mongoose to get all todos in the database
     Todo.find(function(err, todos) {
@@ -59,7 +59,6 @@ app.post('/api/todos', function(req, res) {
             res.json(todos);
         });
     });
-
 });
 
 // DELETE a todo
@@ -70,7 +69,7 @@ app.delete('/api/todos/:todo_id', function(req, res) {
         if (err)
             res.send(err);
 
-        // get and return all the todos after you create another
+        // get and return all the todos after you del another
         Todo.find(function(err, todos) {
             if (err)
                 res.send(err)
@@ -79,6 +78,11 @@ app.delete('/api/todos/:todo_id', function(req, res) {
     });
 });
 
+
+// application -------------------------------------------------------------
+    app.get('*', function(req, res) {
+        res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    });
 
 
 
